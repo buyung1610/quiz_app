@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.white,
       body: FutureBuilder<List<String>>(
         future: fetchSheets(),
         builder: (context, snapshot) {
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     "Pilihlah Salah Satu Materi Soal Dibawah Ini",
                     style: GoogleFonts.montserrat(
-                        fontSize: 18, color: Colors.white),
+                        fontSize: 18, color: Colors.black),
                   ),
                 );
               }
@@ -62,12 +62,15 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                 child: SizedBox(
                   height:
-                      45, // ✅ Atur tinggi button (sesuaikan sesuai kebutuhan)
+                      70, // ✅ Atur tinggi button (sesuaikan sesuai kebutuhan)
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Color(0xFF0D47A1),
+
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
+                      shadowColor: Colors.black,
+                      elevation: 5,
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -76,10 +79,32 @@ class _HomePageState extends State<HomePage> {
                       ));
                       print("Sheet terpilih: ${sheets[index - 1]}");
                     },
-                    child: Text(sheets[index - 1],
-                        style: GoogleFonts.montserrat(
-                            fontSize: 16, color: Colors.white)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  sheets[index - 1],
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "3 Questions",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
+                
                 ),
               );
             },

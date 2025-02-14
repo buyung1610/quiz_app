@@ -25,39 +25,88 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.white, // Latar belakang putih seperti pada gambar
       body: SafeArea(
-        child: Center(
-            child: Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset("assets/trophy.png", width: 150),
-            SizedBox(
-              height: 20,
-            ),
-            Text("Selamat !!! Nilai Kamu ${widget.nilai}",
-                style:
-                    GoogleFonts.montserrat(fontSize: 18, color: Colors.white)),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: _resetSessionAndGoHome,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+            const SizedBox(height: 150),
+            Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 140,
+                    height: 140,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFF0D47A1),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Your Score",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "${widget.nilai}/100",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              child: Text(
-                "Kembali ke Halaman Utama",
-                style:
-                    GoogleFonts.montserrat(fontSize: 16, color: Colors.white),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              "Congratulation",
+              style: GoogleFonts.montserrat(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue.shade900,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Great job! You Did It",
+              style: GoogleFonts.montserrat(
+                fontSize: 16,
+                color: Colors.blue.shade900,
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+              child: ElevatedButton(
+                onPressed: _resetSessionAndGoHome,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade900,
+                  minimumSize: const Size(double.infinity, 60),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  "Back to Home",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],
-        )),
+        ),
       ),
     );
   }

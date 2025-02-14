@@ -19,13 +19,13 @@ class _StartPageState extends State<StartPage> {
   TextEditingController usernameController = TextEditingController();
   bool isLoading = false;
 
-  void getAllData(String username) async {
+  void getAllData(String username, String url) async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      var response = await http.get(Uri.parse(widget.url));
+      var response = await http.get(Uri.parse(url));
       var data = json.decode(response.body) as Map<String, dynamic>?;
       if (data != null) {
         questions = QuestionModel.fromJson(data);
@@ -37,7 +37,7 @@ class _StartPageState extends State<StartPage> {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => TestPage(
             questionModel: questions,
-            username: username,
+            username: username, 
           ),
         ));
       }
@@ -53,28 +53,31 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: const Color(0x00848484),
       body: SafeArea(
         child: Center(
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
                   "Quiz App",
                   style:
-                      GoogleFonts.montserrat(fontSize: 26, color: Colors.white),
+                      GoogleFonts.montserrat(fontSize: 40, color: Colors.black),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextFormField(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: 
+                  TextFormField(
                     controller: usernameController,
                     decoration: InputDecoration(
                       hintText: "Masukkan Username",
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(),
+                      filled: false,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 14),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
@@ -84,22 +87,34 @@ class _StartPageState extends State<StartPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 16),
                 isLoading
                     ? CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white), // Mengubah warna menjadi putih
+                            Colors.black), // Mengubah warna menjadi putih
                         semanticsLabel: 'Loading...',
                         semanticsValue: 'Loading...',
                       )
                     // Loading indicator
-                    : ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            getAllData(usernameController.text);
-                          }
-                        },
-                        child: Text("Mulai"),
+                    : SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                getAllData(usernameController.text, widget.url); 
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 15, 71, 154),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            child: Text("Mulai", style: GoogleFonts.montserrat(fontSize: 16, color: Colors.white),),
+                          ),
+                        ),
                       ),
               ],
             ),

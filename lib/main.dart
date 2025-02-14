@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/pages/home_page.dart';
+import 'package:quiz_app/pages/start_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         progressIndicatorTheme: ProgressIndicatorThemeData(
           color: Colors
-              .white, // Mengatur semua CircularProgressIndicator menjadi putih
+              .black, // Mengatur semua CircularProgressIndicator menjadi putih
         ),
       ),
       home: HomePage(),
